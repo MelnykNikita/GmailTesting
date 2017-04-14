@@ -16,7 +16,6 @@ public class GmailTest {
 
     private WebDriver driver;
     private WebDriverWait wait;
-    private final int MAX_WAIT_TIME = 10;
 
     private final String LINK = "http://mail.google.com";
     private final String MESSAGE_TITLE = "TEST";
@@ -32,15 +31,21 @@ public class GmailTest {
     private WebElement writeButton;
     private WebElement recipientPlaceholder;
     private WebElement messageTitlePlaceholder;
+    private WebElement textBox;
+    private WebElement sendButton;
+    private WebElement inboxLink;
 
     private By emailPlaceholderLocator = new By.ById("Email");
     private By passwordPlaceholderLocator = new By.ById("Passwd");
     private By nextButtonLocator = new By.ById("next");
     private By signInButtonLocator = new By.ById("signIn");
-    private By writeButtonLocator =
-            new By.ByXPath("/html/body/div[7]/div[3]/div/div[2]/div/div/div/div[2]/div/div/div/div/div");
+    private By writeButtonLocator = new By.ByXPath("//*[.='НАПИСАТЬ' or .='COMPOSE']");
     private By recipientPlaceholderLocator = new By.ByName("to");
     private By messageTitlePlaceLocator = new By.ByName("subjectbox");
+    private By textBoxLocator = new By.ByXPath("//div[@role='textbox']");
+    private By sendButtonLocator = new By.ByXPath("//*[.='Отправить' or .='Send']");
+    private By inboxLinkLocator = new By.ByXPath("//a[contains(text(),'Входящие')]");
+    private By letterTitleLocator = new By.ByXPath("//b[contains(text(),'" + MESSAGE_TITLE + "')]");
 
     @BeforeClass
     public void setUpDriverAndPreconditions() {
@@ -57,12 +62,14 @@ public class GmailTest {
     }
 
     @Test
-    public void verifyMessage() {
+    public void verifyMessageSentToMyself() {
         clickOnWriteButton();
         inputRecipientEmail(RECIPIENT_EMAIL);
         inputMessageTitle(MESSAGE_TITLE);
-
-        Assert.assertTrue(LINK.contains("google"));
+        inputMessageInTextbox(MESSAGE);
+        clickOnSendButton();
+        clickOnInboxLink();
+        Assert.assertTrue(isElementPresent(letterTitleLocator));
     }
 
 
@@ -106,7 +113,26 @@ public class GmailTest {
 
     private void inputMessageTitle(String title) {
         messageTitlePlaceholder = wait.until(ExpectedConditions.presenceOfElementLocated(messageTitlePlaceLocator));
-        messageTitlePlaceholder.click();
         messageTitlePlaceholder.sendKeys(title);
+    }
+
+    private void inputMessageInTextbox(String message) {
+        textBox = wait.until(ExpectedConditions.presenceOfElementLocated(textBoxLocator));
+        textBox.click();
+        textBox.sendKeys(message);
+    }
+
+    private void clickOnSendButton() {
+        sendButton = wait.until(ExpectedConditions.presenceOfElementLocated(sendButtonLocator));
+        sendButton.click();
+    }
+
+    private void clickOnInboxLink() {
+        inboxLink = wait.until(ExpectedConditions.presenceOfElementLocated(inboxLinkLocator));
+        inboxLink.click();
+    }
+
+    private boolean isElementPresent(By locator) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator)).isEnabled();
     }
 }
