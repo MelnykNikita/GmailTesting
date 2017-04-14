@@ -72,7 +72,6 @@ public class GmailTest {
         Assert.assertTrue(isElementPresent(letterTitleLocator));
     }
 
-
     private void setPreconditions() {
         driver.get(LINK);
         logIn();
