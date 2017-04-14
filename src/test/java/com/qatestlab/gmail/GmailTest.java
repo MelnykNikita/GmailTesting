@@ -75,7 +75,6 @@ public class GmailTest {
     private void setPreconditions() {
         driver.get(LINK);
         logIn();
-
     }
 
     private void logIn() {
