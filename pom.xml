@@ -46,6 +46,11 @@
           <artifactId>reportng</artifactId>
           <version>1.1.4</version>
       </dependency>
+      <dependency>
+          <groupId>ru.yandex.qatools.allure</groupId>
+          <artifactId>allure-testng-adaptor</artifactId>
+          <version>1.5.2</version>
+      </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -88,6 +93,34 @@
                 <target>1.6</target>
             </configuration>
       </plugin>
+      <plugin>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <version>9.2.10.v20150310</version>
+          <configuration>
+              <webAppSourceDirectory>${project.build.directory}/site/allure-maven-plugin</webAppSourceDirectory>
+              <stopKey>stop</stopKey>
+              <stopPort>1234</stopPort>
+          </configuration>
+      </plugin>
+      <plugin>
+          <groupId>ru.yandex.qatools.allure</groupId>
+          <artifactId>allure-maven-plugin</artifactId>
+          <configuration>
+              <resultsDirectory>allure-results</resultsDirectory>
+          </configuration>
+      </plugin>
+
     </plugins>
   </build>
+  <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>ru.yandex.qatools.allure</groupId>
+                <artifactId>allure-maven-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+        </plugins>
+  </reporting>
 </project>

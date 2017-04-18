@@ -12,7 +12,12 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
 
+@Features("Verify possibility to send letter to myself")
+@Stories("Google Chrome browser")
 public class GmailTest {
 
     private WebDriver driver;
@@ -64,6 +69,7 @@ public class GmailTest {
         Reporter.logAction("Browser is closed");
     }
 
+    @TestCaseId("Test-1")
     @Test(dataProvider = "user1", dataProviderClass = DataProviderSource.class)
     public void verifyMessageSentToMyself(String email, String password) {
         setPreconditions(email, password);
@@ -153,10 +159,4 @@ public class GmailTest {
         return false;
     }
 
-    /*@DataProvider(name = "dataProvider")
-    public Object[][] provideData() {
-        return new Object[][] {
-                {"NikitaMelnikQATestLab@gmail.com", "QATestLab22121989"}
-        };
-    }*/
 }
