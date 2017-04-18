@@ -13,6 +13,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
 
@@ -74,34 +75,27 @@ public class GmailTest {
     public void verifyMessageSentToMyself(String email, String password) {
         setPreconditions(email, password);
         clickOnWriteButton();
-        Reporter.log("Click action performed on WRITE button");
         inputRecipientEmail(RECIPIENT_EMAIL);
-        Reporter.log("User entered recipient email in email box");
         inputMessageTitle(MESSAGE_TITLE);
-        Reporter.log("User entered title of message in title box");
         inputMessageInTextbox(MESSAGE);
-        Reporter.log("User entered message in message box");
         clickOnSendButton();
-        Reporter.log("Click action performed on SEND button");
-        Reporter.logAction("A message is sent successful");
         clickOnInboxLink();
-        Reporter.log("Click action performed on INBOX link");
         Assert.assertTrue(isElementPresent(letterTitleLocator), "Element is not present");
-        Reporter.logAction("Verification PASSED");
     }
 
+    @Step
     private void setPreconditions(String email, String password) {
         driver.get(LINK);
-        Reporter.logAction("Web application launched");
         logIn(email, password);
-        Reporter.logAction("Log In successful");
     }
 
+    @Step
     private void logIn(String email, String password) {
         inputEmail(email);
         inputPassword(password);
     }
 
+    @Step
     private void inputEmail(String email) {
         emailPlaceholder = wait.until(ExpectedConditions.presenceOfElementLocated(emailPlaceholderLocator));
         emailPlaceholder.click();
@@ -110,6 +104,7 @@ public class GmailTest {
         nextButton.click();
     }
 
+    @Step
     private void inputPassword(String password) {
         passwordPlaceholder = wait.until(ExpectedConditions.presenceOfElementLocated(passwordPlaceholderLocator));
         passwordPlaceholder.click();
@@ -118,33 +113,39 @@ public class GmailTest {
         signInButton.click();
     }
 
+    @Step
     private void clickOnWriteButton() {
         writeButton = wait.until(ExpectedConditions.presenceOfElementLocated(writeButtonLocator));
         writeButton.click();
     }
 
+    @Step
     private void inputRecipientEmail(String email) {
         recipientPlaceholder = wait.until(ExpectedConditions.presenceOfElementLocated(recipientPlaceholderLocator));
         recipientPlaceholder.click();
         recipientPlaceholder.sendKeys(email);
     }
 
+    @Step
     private void inputMessageTitle(String title) {
         messageTitlePlaceholder = wait.until(ExpectedConditions.presenceOfElementLocated(messageTitlePlaceLocator));
         messageTitlePlaceholder.sendKeys(title);
     }
 
+    @Step
     private void inputMessageInTextbox(String message) {
         textBox = wait.until(ExpectedConditions.presenceOfElementLocated(textBoxLocator));
         textBox.click();
         textBox.sendKeys(message);
     }
 
+    @Step
     private void clickOnSendButton() {
         sendButton = wait.until(ExpectedConditions.presenceOfElementLocated(sendButtonLocator));
         sendButton.click();
     }
 
+    @Step
     private void clickOnInboxLink() {
         inboxLink = wait.until(ExpectedConditions.presenceOfElementLocated(inboxLinkLocator));
         inboxLink.click();
