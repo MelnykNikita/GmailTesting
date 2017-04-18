@@ -49,14 +49,13 @@ public class GmailTest {
     private By letterTitleLocator = new By.ByXPath("//b[contains(text(),'" + MESSAGE_TITLE + "')]");
 
     @BeforeClass
-    public void setUpDriverAndPreconditions() {
+    public void setUpDriver() {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
         Reporter.log("New driver instantiated");
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 10);
         Reporter.log("Waiter applied on the driver for 10 seconds");
-        setPreconditions();
     }
 
     @AfterClass
@@ -65,8 +64,9 @@ public class GmailTest {
         Reporter.logAction("Browser is closed");
     }
 
-    @Test
-    public void verifyMessageSentToMyself() {
+    @Test(dataProvider = "user1", dataProviderClass = DataProviderSource.class)
+    public void verifyMessageSentToMyself(String email, String password) {
+        setPreconditions(email, password);
         clickOnWriteButton();
         Reporter.log("Click action performed on WRITE button");
         inputRecipientEmail(RECIPIENT_EMAIL);
@@ -80,20 +80,20 @@ public class GmailTest {
         Reporter.logAction("A message is sent successful");
         clickOnInboxLink();
         Reporter.log("Click action performed on INBOX link");
-        Assert.assertTrue(isElementPresent(letterTitleLocator));
+        Assert.assertTrue(isElementPresent(letterTitleLocator), "Element is not present");
         Reporter.logAction("Verification PASSED");
     }
 
-    private void setPreconditions() {
+    private void setPreconditions(String email, String password) {
         driver.get(LINK);
         Reporter.logAction("Web application launched");
-        logIn();
+        logIn(email, password);
         Reporter.logAction("Log In successful");
     }
 
-    private void logIn() {
-        inputEmail(EMAIL);
-        inputPassword(PASSWORD);
+    private void logIn(String email, String password) {
+        inputEmail(email);
+        inputPassword(password);
     }
 
     private void inputEmail(String email) {
@@ -145,6 +145,18 @@ public class GmailTest {
     }
 
     private boolean isElementPresent(By locator) {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(locator)).isEnabled();
+        try {
+            return wait.until(ExpectedConditions.presenceOfElementLocated(locator)).isEnabled();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
+
+    /*@DataProvider(name = "dataProvider")
+    public Object[][] provideData() {
+        return new Object[][] {
+                {"NikitaMelnikQATestLab@gmail.com", "QATestLab22121989"}
+        };
+    }*/
 }
