@@ -1,5 +1,6 @@
 package com.qatestlab.gmail;
 
+import Reporter.Reporter;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -51,30 +52,43 @@ public class GmailTest {
     public void setUpDriverAndPreconditions() {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
+        Reporter.log("New driver instantiated");
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 10);
+        Reporter.log("Waiter applied on the driver for 10 seconds");
         setPreconditions();
     }
 
     @AfterClass
     public void quitDriver() {
         driver.quit();
+        Reporter.logAction("Browser is closed");
     }
 
     @Test
     public void verifyMessageSentToMyself() {
         clickOnWriteButton();
+        Reporter.log("Click action performed on WRITE button");
         inputRecipientEmail(RECIPIENT_EMAIL);
+        Reporter.log("User entered recipient email in email box");
         inputMessageTitle(MESSAGE_TITLE);
+        Reporter.log("User entered title of message in title box");
         inputMessageInTextbox(MESSAGE);
+        Reporter.log("User entered message in message box");
         clickOnSendButton();
+        Reporter.log("Click action performed on SEND button");
+        Reporter.logAction("A message is sent successful");
         clickOnInboxLink();
+        Reporter.log("Click action performed on INBOX link");
         Assert.assertTrue(isElementPresent(letterTitleLocator));
+        Reporter.logAction("Verification PASSED");
     }
 
     private void setPreconditions() {
         driver.get(LINK);
+        Reporter.logAction("Web application launched");
         logIn();
+        Reporter.logAction("Log In successful");
     }
 
     private void logIn() {
