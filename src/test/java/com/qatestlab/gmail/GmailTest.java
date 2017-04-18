@@ -1,6 +1,5 @@
 package com.qatestlab.gmail;
 
-import Reporter.Reporter;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,17 +10,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
 
+@Listeners(TestListener.class)
 @Features("Verify possibility to send letter to myself")
 @Stories("Google Chrome browser")
 public class GmailTest {
 
-    private WebDriver driver;
+    private static WebDriver driver;
     private WebDriverWait wait;
 
     private final String LINK = "http://mail.google.com";
@@ -58,16 +59,13 @@ public class GmailTest {
     public void setUpDriver() {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
-        Reporter.log("New driver instantiated");
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 10);
-        Reporter.log("Waiter applied on the driver for 10 seconds");
     }
 
     @AfterClass
     public void quitDriver() {
         driver.quit();
-        Reporter.logAction("Browser is closed");
     }
 
     @TestCaseId("Test-1")
@@ -160,4 +158,7 @@ public class GmailTest {
         return false;
     }
 
+    public static WebDriver getDriver() {
+        return driver;
+    }
 }
