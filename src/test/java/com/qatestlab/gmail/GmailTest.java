@@ -46,7 +46,7 @@ public class GmailTest {
     private By emailPlaceholderLocator = new By.ById("Email");
     private By passwordPlaceholderLocator = new By.ById("Passwd");
     private By nextButtonLocator = new By.ById("next");
-    private By signInButtonLocator = new By.ById("signIn");
+    private By signInButtonLocator = new By.ById("signI"); //FAIL
     private By writeButtonLocator = new By.ByXPath("//*[.='НАПИСАТЬ' or .='COMPOSE']");
     private By recipientPlaceholderLocator = new By.ByName("to");
     private By messageTitlePlaceLocator = new By.ByName("subjectbox");
