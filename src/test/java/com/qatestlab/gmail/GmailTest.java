@@ -36,7 +36,6 @@ public class GmailTest {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-
     }
 
     @AfterClass
@@ -57,7 +56,7 @@ public class GmailTest {
         Assert.assertTrue(profilePage
                 .getLetterTitle()
                 .getText()
-                .equalsIgnoreCase(MESSAGE_TITLE), "Element is not present...");
+                .equalsIgnoreCase(MESSAGE_TITLE), "FAILURE...");
     }
 
     @Step

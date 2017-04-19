@@ -39,9 +39,4 @@ public class ProfilePage extends AbstractPage<ProfilePage> {
     public WebElement getLetterTitle() {
         return letterTitle;
     }
-
-    public static void setMessageTitle(String messageTitle) {
-        //xpathForLetterTitleLocator = new String("//b[contains(text(),'").concat("TEST").concat("')]");
-
-    }
 }

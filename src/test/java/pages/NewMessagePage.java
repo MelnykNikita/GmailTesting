@@ -30,7 +30,6 @@ public class NewMessagePage extends AbstractPage<NewMessagePage> {
     @Step
     public NewMessagePage inputMessageTitle(String msgTitle) {
         inputData(messageTitlePlaceholder, msgTitle);
-        ProfilePage.setMessageTitle(msgTitle); // for initialization of dynamic locator
         return this;
     }
 
