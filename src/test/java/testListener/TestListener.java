@@ -1,12 +1,12 @@
-package com.qatestlab.gmail;
+package testListener;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
+import pages.AbstractPage;
 import ru.yandex.qatools.allure.annotations.Attachment;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -25,7 +25,7 @@ public class TestListener extends TestListenerAdapter {
     private byte[] attachScreenshot() {
         byte[] screenshotAs = null;
         try {
-            screenshotAs = ((TakesScreenshot) GmailTest.getDriver()).getScreenshotAs(OutputType.BYTES);
+            screenshotAs = ((TakesScreenshot) AbstractPage.getDriver()).getScreenshotAs(OutputType.BYTES);
         } catch (Exception e) {
             e.printStackTrace();
         }

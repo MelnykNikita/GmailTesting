@@ -1,4 +1,4 @@
-package com.qatestlab.gmail;
+package dataProvider;
 
 import org.testng.annotations.DataProvider;
 
