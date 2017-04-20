@@ -1,16 +1,15 @@
 package com.qatestlab.gmail;
 
-import io.github.bonigarcia.wdm.ChromeDriverManager;
+
+import WebDriverFactory.WebDrivers;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public abstract class BaseTest {
 
     private static WebDriver driver;
 
-    public void setUpDriver() {
-        ChromeDriverManager.getInstance().setup();
-        driver = new ChromeDriver();
+    public void setUpDriver(String webDriver) {
+        driver = WebDrivers.getDriver(webDriver);
         driver.manage().window().maximize();
     }
 

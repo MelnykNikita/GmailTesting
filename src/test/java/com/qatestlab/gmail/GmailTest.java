@@ -21,6 +21,7 @@ public class GmailTest extends BaseTest{
 
     ProfilePage profilePage;
 
+    private final String CHROME = "CHROME";
     private final String LINK = "http://mail.google.com";
     private final String MESSAGE_TITLE = "TEST";
     private final String MESSAGE = "hello, this is test module";
@@ -28,7 +29,7 @@ public class GmailTest extends BaseTest{
 
     @BeforeClass
     public void setUpDriver() {
-        super.setUpDriver();
+        super.setUpDriver(CHROME);
     }
 
     @AfterClass
