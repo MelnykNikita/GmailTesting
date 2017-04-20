@@ -8,9 +8,6 @@ import ru.yandex.qatools.allure.annotations.Step;
 
 public class ProfilePage extends AbstractPage<ProfilePage> {
 
-    //private static String MESSAGE_TITLE;
-    private static String xpathForLetterTitleLocator;
-
     @FindBy(how = How.XPATH, using = "//*[.='НАПИСАТЬ' or .='COMPOSE']")
     private WebElement writeButton;
 
