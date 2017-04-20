@@ -1,9 +1,6 @@
 package com.qatestlab.gmail;
 
 import dataProvider.DataProviderSource;
-import io.github.bonigarcia.wdm.ChromeDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -20,9 +17,7 @@ import testListener.TestListener;
 @Listeners(TestListener.class)
 @Features("Verify possibility to send letter to myself")
 @Stories("Google Chrome browser")
-public class GmailTest {
-
-    private static WebDriver driver;
+public class GmailTest extends BaseTest{
 
     ProfilePage profilePage;
 
@@ -33,14 +28,12 @@ public class GmailTest {
 
     @BeforeClass
     public void setUpDriver() {
-        ChromeDriverManager.getInstance().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        super.setUpDriver();
     }
 
     @AfterClass
     public void quitDriver() {
-        driver.quit();
+        super.quitDriver();
     }
 
     @TestCaseId("Test-1")
@@ -61,8 +54,8 @@ public class GmailTest {
 
     @Step
     private void setPreconditions(String email, String password) {
-        driver.get(LINK);
-        profilePage = new EmailPage(driver)
+        getDriver().get(LINK);
+        profilePage = new EmailPage(getDriver())
                 .inputEmail(email)
                 .clickNextButton()
                 .inputPassword(password)
