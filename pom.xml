@@ -111,7 +111,7 @@
                     <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
                 </suiteXmlFiles>
                 <systemPropertyVariables>
-                    <browser>${webdriver.chrome.driver}</browser>
+                    <browser>chrome</browser>
                 </systemPropertyVariables>
             </configuration>
             <dependencies>

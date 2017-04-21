@@ -8,8 +8,8 @@ public abstract class BaseTest {
 
     private static WebDriver driver;
 
-    public void setUpDriver(String webDriver) {
-        driver = WebDrivers.getDriver(webDriver);
+    public void setUpDriver(String webDriverName) {
+        driver = WebDrivers.getDriver(webDriverName);
         driver.manage().window().maximize();
     }
 
