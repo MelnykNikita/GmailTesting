@@ -30,7 +30,7 @@ public class GmailTest extends BaseTest{
 
     @BeforeClass
     public void setUpDriver() {
-        super.setUpDriver(FIREFOX);
+        super.setUpDriver(CHROME);
     }
 
     @AfterClass

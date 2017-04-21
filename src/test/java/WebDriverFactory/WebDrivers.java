@@ -2,6 +2,7 @@ package WebDriverFactory;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.File;
@@ -16,6 +17,9 @@ public class WebDrivers {
             //ChromeDriverManager.getInstance().setup();
             String resource = getResource("/chromedriver.exe");
             System.setProperty("webdriver.chrome.driver", resource);
+
+            /*ChromeOptions options = new ChromeOptions();
+            addExtensionToChromeFromResources(options,"Adblock-Plus_v1.13.2.crx");*/
 
             return new ChromeDriver();
         }
@@ -45,6 +49,12 @@ public class WebDrivers {
             e.printStackTrace();
         }
         return resourceName;
+    }
+
+    private static void addExtensionToChromeFromResources(ChromeOptions options, String nameOfExtension) {
+        String s = File.separator;
+        String path = System.getProperty("user.dir") + s + "src" + s + "test" + s + "resources" + s;
+        options.addExtensions(new File(path + nameOfExtension));
     }
 
 }
