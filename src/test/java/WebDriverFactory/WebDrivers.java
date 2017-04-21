@@ -1,11 +1,12 @@
 package WebDriverFactory;
 
-import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.File;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 
 public class WebDrivers {
 
@@ -13,27 +14,37 @@ public class WebDrivers {
 
         if (driverName.equalsIgnoreCase("CHROME")) {
             //ChromeDriverManager.getInstance().setup();
-            /*File file = new File(WebDrivers.class.getResource("/chromedriver.exe").getFile());*/
-            /*System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());*/
-
-            String s = File.separator;
-            String path = System.getProperty("user.dir") + s + "src" + s + "test" + s + "resources" + s;
-            String fileName = "chromedriver.exe";
-            File file = new File(path + fileName);
-            System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
-
-            /*File file = new File("D:\\Никита Мельник\\Java Projects\\Gmail\\gmail\\src\\test\\resources\\chromedriver.exe");
-            System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());*/
+            String resource = getResource("/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", resource);
 
             return new ChromeDriver();
         }
         else if (driverName.equalsIgnoreCase("FIREFOX")) {
-            FirefoxDriverManager.getInstance().setup();
+            //FirefoxDriverManager.getInstance().setup();
+            String resource = getResource("/geckodriver.exe");
+            System.setProperty("webdriver.gecko.driver", resource);
+
             return new FirefoxDriver();
         }
         else {
             return null;
         }
+    }
+
+    private static void setProperty(String executableFileName, String fileName) {
+        String s = File.separator;
+        String path = System.getProperty("user.dir") + s + "src" + s + "test" + s + "resources" + s;
+        File file = new File(path + executableFileName);
+        System.setProperty(fileName, file.getAbsolutePath());
+    }
+
+    private static String getResource(String resourceName) {
+        try {
+            return Paths.get(WebDrivers.class.getResource(resourceName).toURI()).toFile().getPath();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return resourceName;
     }
 
 }
