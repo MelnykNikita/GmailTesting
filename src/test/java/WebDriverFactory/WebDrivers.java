@@ -18,9 +18,6 @@ public class WebDrivers {
             String resource = getResource("/chromedriver.exe");
             System.setProperty("webdriver.chrome.driver", resource);
 
-            /*ChromeOptions options = new ChromeOptions();
-            addExtensionToChromeFromResources(options,"Adblock-Plus_v1.13.2.crx");*/
-
             return new ChromeDriver();
         }
         else if (driverName.equalsIgnoreCase("FIREFOX")) {
